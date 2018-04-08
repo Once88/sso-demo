@@ -8,8 +8,12 @@
 
 class IndexController
 {
+    /**
+     * 默认func
+     */
     public function index()
     {
         echo "hello, steve.";
     }
+
 }
