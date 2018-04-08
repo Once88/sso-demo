@@ -6,6 +6,7 @@
  * Time: 下午2:49
  */
 
+
 //如果有token参数，则验证token
 $token = $_GET['token'] ?? '';
 if ($token) {
@@ -16,9 +17,11 @@ if ($token) {
         //创建局部会话
         setcookie('sso_cookie', 'sso', time()+600);
         
-        header("Location:main_view.php");
+//        header("Location:main_view.php");
+        include ("login_view.php");
     } else {
-        header("Location:login_view.php");
+//        header("Location:login_view.php");
+        include ("main_view.php");
     }
     exit;
 }
@@ -28,9 +31,11 @@ if ($token) {
 $sso_cookie = $_COOKIE['sso_cookie'] ?? '';
 
 if (!check()) {
-    header("Location:login_view.php");
+//    header("Location:login_view.php");
+    include ("login_view.php");
 } else {
-    header("Location:main_view.php");
+//    header("Location:main_view.php");
+    include ("main_view.php");
 }
 
 /**
