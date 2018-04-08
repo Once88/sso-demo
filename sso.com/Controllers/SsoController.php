@@ -15,6 +15,7 @@ class SsoController
     public function auth()
     {
         $cookie = $_COOKIE['sso_cookie'] ?? '';
+        var_dump($cookie);
 
         //判断是否有cookie，有则返回token；没有则跳转登录页
         if ($cookie == 'sso') {
@@ -54,11 +55,12 @@ class SsoController
         $url = $_GET['url'] ?? '';
         if ($username == 'a' && $password == '1') {
             //用户名密码正确，则创建全局会话，并返回token
-            setcookie('sso_cookie', 'sso', time() + 600);
+            setcookie('sso_cookie', 'sso', time() + 600, '/');
             //跳转并附上token
             header("Location:" . $url . "?token=ssotoken");
         } else {
-            echo 'false';
+            //跳转
+            header("Location:" . $url);
         }
 
         exit;

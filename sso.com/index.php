@@ -19,11 +19,17 @@ $request = $_SERVER['REQUEST_URI'];
 
 //获取index.php 后面的地址
 $full = trim(str_replace($root, '', $request), '/');
-$url = substr($full, 0, stripos($full, '?'));
+if(stripos($full, '?')){
+    $url = substr($full, 0, stripos($full, '?'));
+}else{
+    $url = $full;
+}
 
 //解析QUERY_STRING，生成$_GET
 $_SERVER['QUERY_STRING'] = substr($full, stripos($full, '?')+1);
 parse_str($_SERVER['QUERY_STRING'], $_GET);
+
+$uri = explode('/', $url);
 
 //如果为空则访问默认控制器的默认方法
 if (empty($url)) {
@@ -31,7 +37,6 @@ if (empty($url)) {
     $class = 'index';
     $func = 'index';
 } else {
-    $uri = explode('/', $url);
     $class = $uri[0];
 
     //如果function为空，则访问默认方法
@@ -57,7 +62,7 @@ call_user_func_array(
 //调用function
     array($obj, $func),
     //传递参数
-    array_slice($uri, 2)
+    count($uri) > 2 ? array_slice($uri, 2) : array()
 );
 
 

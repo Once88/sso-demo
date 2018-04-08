@@ -14,6 +14,8 @@ class IndexController
     public function index()
     {
         echo "hello, steve.";
+        var_dump($_COOKIE);
+        exit;
     }
 
 }
